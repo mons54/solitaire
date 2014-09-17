@@ -1,0 +1,20 @@
+<div id="game">
+	<div class="game">
+		<a ng-click="addPickCard()" class="decks" href></a>
+		<div ng-class="{'card': pickCard, 'opacity-card': !pickCard }"
+		     class="pick opacity-card {{ pickCard ? 'color-' + pickCard.color : '' }} {{ pickCard ? 'value-' + pickCard.value : '' }}">
+		</div>
+
+		<div ng-repeat="cards in savedCards" class="opacity-card">
+			
+		</div>
+	</div>
+	<div class="piles">
+		<div ng-repeat="cards in piles" class="pile">
+			<div ng-repeat="(key, card) in cards"
+				 ng-class="{'card': isLastCard(cards, key), 'card-hide': !isLastCard(cards, key) }"
+			     class="{{ isLastCard(cards, key) ? 'color-' + card.color : '' }} {{ isLastCard(cards, key) ? 'value-' + card.value : '' }}">
+			</div>
+		</div>
+	</div>
+</div>

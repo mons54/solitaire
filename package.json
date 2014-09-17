@@ -1,0 +1,6 @@
+{
+ 	"name": "angular-example",
+	"devDependencies": {
+		"express": "~3.4.8"
+	}
+}

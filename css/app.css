@@ -1,0 +1,121 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+
+body > div {
+	background: url('/img/background.png') no-repeat center #553C3C;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.card:hover, .decks:hover {
+	cursor: pointer;
+}
+
+.game, .piles {
+	text-align: center;
+}
+
+.game, .piles {
+	margin: 50px 0;
+}
+
+.decks {
+	display: inline-block;
+	width: 105px;
+	height: 148px;
+	background: #fff;
+}
+.pick {
+	display: inline-block;
+	margin-right: 130px;
+	margin-left: 30px;
+}
+.opacity-card {
+	display: inline-block;
+	margin-left: 30px;
+	width: 105px;
+	height: 148px;
+	background: #FFF;
+	opacity: 0.2;
+}
+
+.pile {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 30px;
+	width: 105px;
+	background: #000;
+}
+.pile .card-hide {
+	width: 105px;
+	height: 10px;
+	border-bottom: 1px solid #000;
+	background: #fff;
+}
+.pile:first-child {
+	margin-left: 0;
+}
+
+.card {
+	background-image: url('/img/cards.jpg');
+	width: 105px;
+	height: 148px;
+}
+
+.color-1 {
+	background-position-y: -1px;
+}
+.color-2 {
+	background-position-y: -151px;
+}
+.color-3 {
+	background-position-y: -301px;
+}
+.color-4 {
+	background-position-y: -451px;
+}
+
+.value-2 {
+	background-position-x: -110px;
+}
+.value-3 {
+	background-position-x: -217px;
+}
+.value-4 {
+	background-position-x: -325px;
+}
+.value-5 {
+	background-position-x: -432px;
+}
+.value-6 {
+	background-position-x: -540px;
+}
+.value-7 {
+	background-position-x: -647px;
+}
+.value-8 {
+	background-position-x: -755px;
+}
+.value-9 {
+	background-position-x: -863px;
+}
+.value-10 {
+	background-position-x: -971px;
+}
+.value-11 {
+	background-position-x: -1078px;
+}
+.value-12 {
+	background-position-x: -1186px;
+}
+.value-13 {
+	background-position-x: -1293px;
+}
+.value-14 {
+	background-position-x: -1px;
+}
