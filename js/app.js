@@ -23,7 +23,7 @@
 
 	controllers.controller('mainCtrl', ['$rootScope', '$scope', function ($rootScope, $scope) {
 		$scope.cards = {
-			value: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+			value: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
 			color: [1, 2, 3, 4]
 		};
 
@@ -43,7 +43,9 @@
 		$scope.piles = {};
 
 		for (var i = 1; i <= 7; i++) {
-			$scope.piles[i] = $scope.game.splice(0, i);
+			var cards = $scope.game.splice(0, i);
+			cards[cards.length - 1].display = true;
+			$scope.piles[i] = cards;
 		}
 
 		$scope.isLastCard = function (cards, key) {
@@ -68,16 +70,49 @@
 			}
 		};
 
-		$scope.getLastElm = function ($array) {
-			return $array[$array.length - 1] ? $array[$array.length - 1] : null;
+		$scope.dropSavedCard = function (savedCard) {
+			var data = $scope.dragEl.data(),
+				card = getDragCard(data),
+				lastCard = $scope.getLastElm(savedCard),
+				checkCardValue = lastCard ? lastCard.value + 1 : 1,
+				checkCardColor = lastCard ? lastCard.color : card.color;
+
+			if (checkCardValue == card.value && checkCardColor == card.color) {
+				dragCard(savedCard, data);
+				$scope.$apply();
+			}
 		};
 
-		$scope.drop = function (savedCard) {
+		$scope.dropPile = function (pile) {
 			var data = $scope.dragEl.data(),
-				card = data.pick ? $scope.pick.splice($scope.pick.length - 1, 1) : $scope.piles[data.pileIndex].splice(data.cardIndex, 1);
-			savedCard.push(card[0]);
-			$scope.$apply();
+				card = getDragCard(data),
+				lastCard = $scope.getLastElm(pile);
+
+			if (!lastCard || (lastCard.color % 2 != card.color % 2 && lastCard.value - 1 == card.value)) {
+				dragCard(pile, data);
+			}
 		};
+
+		$scope.getLastElm = function (array) {
+			return array[array.length - 1] ? array[array.length - 1] : null;
+		};
+
+		function getDragCard(data) {
+			return data.pick ? $scope.pick[$scope.pick.length - 1] : $scope.piles[data.pileIndex][data.cardIndex];
+		}
+
+		function dragCard (array, data) {
+			var card = data.pick ? $scope.pick.splice($scope.pick.length - 1, 1)[0] : $scope.piles[data.pileIndex].splice(data.cardIndex, 1)[0];
+			card.display = true;
+			array.push(card);
+			if (data.pileIndex) {
+				var pile = $scope.piles[data.pileIndex];
+				if ($scope.getLastElm(pile)) {
+					pile[pile.length - 1].display = true;
+				}
+			}
+			$scope.$apply();
+		}
 
 		$rootScope.$on('dragStart', function (event, el) {
 			$scope.dragEl = el;

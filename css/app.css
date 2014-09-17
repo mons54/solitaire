@@ -55,13 +55,19 @@ body > div {
 	vertical-align: top;
 	margin-left: 30px;
 	width: 105px;
+	height: 148px;
 	background: #000;
 }
 .pile .card-hide {
-	width: 105px;
-	height: 10px;
+	height: 20px;
 	border-bottom: 1px solid #000;
 	background: #fff;
+}
+.pile .card {
+	height: 20px;
+}
+.pile .lastCard {
+	height: 148px;
 }
 .pile:first-child {
 	margin-left: 0;
@@ -80,10 +86,10 @@ body > div {
 	background-position-y: -151px;
 }
 .color-3 {
-	background-position-y: -301px;
+	background-position-y: -451px;
 }
 .color-4 {
-	background-position-y: -451px;
+	background-position-y: -301px;
 }
 
 .value-2 {
