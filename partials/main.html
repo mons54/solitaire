@@ -25,7 +25,7 @@
 				 droppable="true" x-on-drop="dropPile(pile)"
 				 class="pile">
 				<div ng-repeat="(cardIndex, card) in pile"
-					 droppable="{{ isLastCard(pile, cardIndex) }}" x-on-drop="dropPile(pile)"
+					 droppable="{{ isLastCard(pile, cardIndex) ? true : '' }}" x-on-drop="dropPile(pile)"
 					 draggable="{{ card.display ? true : '' }}" data-pile-index="{{pileIndex}}" data-card-index="{{cardIndex}}"
 					 ng-class="{'card': card.display, 'card-hide': !card.display, 'lastCard': isLastCard(pile, cardIndex)}"
 				     class="{{ card.display ? 'color-' + card.color : '' }} {{ card.display ? 'value-' + card.value : '' }}">

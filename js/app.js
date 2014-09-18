@@ -172,8 +172,10 @@
 				el.draggable({
 					revert: true,
 					revertDuration: 0,
-					zIndex: 99999999,
-        			start: function(event, ui ) {
+        			start: function(event, ui) {
+        				if (!el.attr('draggable')) {
+        					return false;
+        				}
         				$rootScope.$emit('dragStart', el);
         			},
         			stop: function(event, ui ) {

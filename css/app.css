@@ -12,6 +12,9 @@ body > div {
 	left: 0;
 }
 
+.ui-draggable-dragging {
+	z-index: 99999999999999;
+}
 [draggable="true"] {
 	cursor: move;
 }
