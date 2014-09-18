@@ -12,7 +12,7 @@ body > div {
 	left: 0;
 }
 
-[x-lvl-draggable="true"] {
+[draggable="true"] {
 	cursor: move;
 }
 

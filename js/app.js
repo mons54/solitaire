@@ -84,6 +84,9 @@
 		};
 
 		$scope.dropPile = function (pile) {
+			if (!$scope.dragEl) {
+				return;
+			}
 			var data = $scope.dragEl.data(),
 				card = getDragCard(data),
 				lastCard = $scope.getLastElm(pile);
@@ -117,6 +120,12 @@
 		}
 
 		$rootScope.$on('dragStart', function (event, el) {
+			$scope.dragEl = el;
+
+			if (!el.parent) {
+				return
+			}
+
 			var cards = el.parent().find('.card'),
 				hide = false;
 			angular.forEach(cards, function (card) {
@@ -127,11 +136,13 @@
 					hide = true;
 				}
 			});
-			$scope.dragEl = el;
 		});
 
-		$rootScope.$on('dragEnd', function (event, el) {
+		$rootScope.$on('dragStop', function (event, el) {
 			$scope.dragEl = null;
+			if (!el.parent) {
+				return
+			}
 			el.parent().find('.card').removeClass('hide');
 		});
 
@@ -142,123 +153,55 @@
     	return o;
 	}
 
-	var module;
+	function uid() {
+		function s4() {
+			return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+		}
+		return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+	};
 
-	try {
-	    module = angular.module('lvl.services');
-	} catch (e) {
-	    module  = angular.module('lvl.services', []);
-	}
+	var directives = angular.module('directives', []);
 
-	module.factory('uuid', function () {
-	    var svc = {
-	        _new: function() {
-	            function _p8(s) {
-	                var p = (Math.random().toString(16)+"000000000").substr(2,8);
-	                return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p ;
-	            }
-	            return _p8() + _p8(true) + _p8(true) + _p8();
-	        },
-
-	        empty: function() {
-	          return '00000000-0000-0000-0000-000000000000';
-	        }
-	    };
-
-	    return svc;
-	});
-
-	var directives = angular.module('directives', ['lvl.services']);
-
-	directives.directive('lvlDraggable', function ($rootScope, uuid) {
+	directives.directive('draggable', function ($rootScope) {
 		return {
-			restrict: 'AE',
+			restrict: 'A',
 			link: function (scope, el, attrs, controller) {
 
-				angular.element(el).attr('draggable', 'true');
+				angular.element(el).attr('id', uid);
 
-				var id = angular.element(el).attr('id');
-
-				if (!id) {
-					id = uuid._new();
-					angular.element(el).attr('id', id);
-				}
-
-				el.bind('dragstart', function (e) {
-					e.originalEvent.dataTransfer.setData('id', id);
-					$rootScope.$emit('LVL-DRAG-START');
-					$rootScope.$emit('dragStart', el);
-				});
-
-				el.bind('dragend', function (e) {
-					$rootScope.$emit('LVL-DRAG-END');
-					$rootScope.$emit('dragEnd', el);
-				});
+				el.draggable({
+					revert: true,
+					revertDuration: 0,
+					zIndex: 99999999,
+        			start: function(event, ui ) {
+        				$rootScope.$emit('dragStart', el);
+        			},
+        			stop: function(event, ui ) {
+        				$rootScope.$emit('dragStop', el);
+        			}
+    			});
 			}
 		};
 	});
 
-	directives.directive('lvlDropTarget', function ($rootScope, uuid) {
+	directives.directive('droppable', function ($rootScope) {
 		return {
-			restrict: 'AE',
+			restrict: 'A',
 			scope: {
 				onDrop: '&'
 			},
 			link: function (scope, el, attrs, controller) {
-				var id = angular.element(el).attr('id');
 
-				if (!id) {
-					id = uuid._new();
-					angular.element(el).attr('id', id);
-				}
+				angular.element(el).attr('id', uid);
 
-				el.bind('dragover', function (e) {
-
-					if (e.preventDefault) {
-						e.preventDefault();
+				el.droppable({
+					drop: function(event, ui) {
+						scope.onDrop({
+							dragEl: ui,
+							dropEl: el
+						});
+						$rootScope.$emit('dragStop', ui);
 					}
-
-					e.originalEvent.dataTransfer.dropEffect = 'move';
-
-					return false;
-				});
-
-				el.bind('dragenter', function(e) {
-					angular.element(e.target).addClass('lvl-over');
-				});
-
-				el.bind('dragleave', function (e) {
-					angular.element(e.target).removeClass('lvl-over');
-				});
-
-				el.bind('drop', function (e) {
-					if (e.preventDefault) {
-						e.preventDefault();
-					}
-
-					if (e.stopPropogation) {
-						e.stopPropogation();
-					}
-
-					var data = e.originalEvent.dataTransfer.getData('id'),
-						dest = document.getElementById(id),
-						src = document.getElementById(data);
-
-					scope.onDrop({
-						dragEl: src,
-						dropEl: dest
-					});
-				});
-
-				$rootScope.$on('LVL-DRAG-START', function () {
-					var el = document.getElementById(id);
-					angular.element(el).addClass('lvl-target');
-				});
-
-				$rootScope.$on('LVL-DRAG-END', function () {
-					var el = document.getElementById(id);
-					angular.element(el).removeClass('lvl-target');
-					angular.element(el).removeClass('lvl-over');
 				});
 			}
 		};
