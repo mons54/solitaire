@@ -1,0 +1,4 @@
+solitaire
+=========
+
+game solitaire
