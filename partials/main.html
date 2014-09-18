@@ -3,27 +3,27 @@
 		<a ng-click="addPickCard()" class="decks" href></a>
 		<div ng-class="{'opacity-card': !getLastElm(pick)}"
 		     class="pick">
-		     <div ng-if="getLastElm(pick)" 
+		     <div ng-if="getLastElm(pick)"
 		     	  x-lvl-draggable="true" data-pick="true"
 		     	  class="card color-{{ getLastElm(pick).color }} value-{{ getLastElm(pick).value }}">
 			</div>
 		</div>
 
 		<div ng-repeat="(indexSavedCard, savedCard) in savedCards"
-			 ng-class="{'opacity-card': !getLastElm(savedCard)}" 
+			 ng-class="{'opacity-card': !getLastElm(savedCard)}"
 		     x-lvl-drop-target="true" x-on-drop="dropSavedCard(savedCard)"
 		     class="saved-card">
-			<div ng-if="getLastElm(savedCard)" 
+			<div ng-if="getLastElm(savedCard)"
 				 class="card color-{{ getLastElm(savedCard).color }} value-{{ getLastElm(savedCard).value }}">
 			</div>
 		</div>
 	</div>
 	<div class="piles">
-		<div ng-repeat="(pileIndex, pile) in piles" 
+		<div ng-repeat="(pileIndex, pile) in piles"
 			 x-lvl-drop-target="true" x-on-drop="dropPile(pile)"
 			 class="pile">
 			<div ng-repeat="(cardIndex, card) in pile"
-				 x-lvl-draggable="{{ card.display ? true : false }}" data-pile-index="{{pileIndex}}" data-card-index="{{cardIndex}}"
+				 x-lvl-draggable="{{ card.display ? true : '' }}" data-pile-index="{{pileIndex}}" data-card-index="{{cardIndex}}"
 				 ng-class="{'card': card.display, 'card-hide': !card.display, 'lastCard': isLastCard(pile, cardIndex)}"
 			     class="{{ card.display ? 'color-' + card.color : '' }} {{ card.display ? 'value-' + card.value : '' }}">
 			</div>

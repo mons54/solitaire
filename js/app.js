@@ -1,5 +1,5 @@
 (function () {
-	
+
 	'use strict';
 
 	var app = angular.module('app', [
@@ -7,7 +7,7 @@
 	    'controllers',
 	    'directives',
 	]);
-	
+
 	app.config(function ($routeProvider) {
 	    $routeProvider.
 	    when('/', {
@@ -136,7 +136,7 @@
 			el.parent().find('.card').removeClass('hide');
 			el.removeClass('drag');
 		});
-		
+
 	}]);
 
 	function shuffle(o) {
@@ -147,11 +147,11 @@
 	var module;
 
 	try {
-	    module = angular.module('lvl.services');  
+	    module = angular.module('lvl.services');
 	} catch (e) {
 	    module  = angular.module('lvl.services', []);
 	}
-	
+
 	module.factory('uuid', function () {
 	    var svc = {
 	        _new: function() {
@@ -161,12 +161,12 @@
 	            }
 	            return _p8() + _p8(true) + _p8(true) + _p8();
 	        },
-	        
+
 	        empty: function() {
 	          return '00000000-0000-0000-0000-000000000000';
 	        }
 	    };
-	    
+
 	    return svc;
 	});
 
@@ -176,22 +176,26 @@
 		return {
 			restrict: 'AE',
 			link: function (scope, el, attrs, controller) {
-				
+
+				if (!attrs.lvlDraggable) {
+					return;
+				}
+
 				angular.element(el).attr('draggable', 'true');
-				
+
 				var id = angular.element(el).attr('id');
-				
+
 				if (!id) {
 					id = uuid._new();
 					angular.element(el).attr('id', id);
 				}
-				
+
 				el.bind('dragstart', function (e) {
 					e.originalEvent.dataTransfer.setData('id', id);
 					$rootScope.$emit('LVL-DRAG-START');
 					$rootScope.$emit('dragStart', el);
 				});
-				
+
 				el.bind('dragend', function (e) {
 					$rootScope.$emit('LVL-DRAG-END');
 					$rootScope.$emit('dragEnd', el);
@@ -199,7 +203,7 @@
 			}
 		};
 	});
-	
+
 	directives.directive('lvlDropTarget', function ($rootScope, uuid) {
 		return {
 			restrict: 'AE',
@@ -208,55 +212,55 @@
 			},
 			link: function (scope, el, attrs, controller) {
 				var id = angular.element(el).attr('id');
-				
+
 				if (!id) {
 					id = uuid._new();
 					angular.element(el).attr('id', id);
 				}
-				
+
 				el.bind('dragover', function (e) {
-					
+
 					if (e.preventDefault) {
 						e.preventDefault();
 					}
-					
+
 					e.originalEvent.dataTransfer.dropEffect = 'move';
-					
+
 					return false;
 				});
-				
+
 				el.bind('dragenter', function(e) {
 					angular.element(e.target).addClass('lvl-over');
 				});
-				
+
 				el.bind('dragleave', function (e) {
 					angular.element(e.target).removeClass('lvl-over');
 				});
-				
+
 				el.bind('drop', function (e) {
 					if (e.preventDefault) {
 						e.preventDefault();
 					}
-					
+
 					if (e.stopPropogation) {
 						e.stopPropogation();
 					}
-					
+
 					var data = e.originalEvent.dataTransfer.getData('id'),
 						dest = document.getElementById(id),
 						src = document.getElementById(data);
-					
+
 					scope.onDrop({
-						dragEl: src, 
+						dragEl: src,
 						dropEl: dest
 					});
 				});
-				
+
 				$rootScope.$on('LVL-DRAG-START', function () {
 					var el = document.getElementById(id);
 					angular.element(el).addClass('lvl-target');
 				});
-				
+
 				$rootScope.$on('LVL-DRAG-END', function () {
 					var el = document.getElementById(id);
 					angular.element(el).removeClass('lvl-target');
