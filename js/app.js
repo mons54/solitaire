@@ -22,44 +22,49 @@
 	var controllers = angular.module('controllers', []);
 
 	controllers.controller('mainCtrl', ['$rootScope', '$scope', function ($rootScope, $scope) {
-		$scope.cards = {
-			value: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-			color: [1, 2, 3, 4]
-		};
 
-		$scope.game = [];
+		$scope.create = function () {
+			$scope.cards = {
+				value: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+				color: [1, 2, 3, 4]
+			};
 
-		angular.forEach($scope.cards.color, function(color) {
-			angular.forEach($scope.cards.value, function(value) {
-				$scope.game.push({
-					color: color,
-					value: value
+			$scope.game = [];
+
+			angular.forEach($scope.cards.color, function(color) {
+				angular.forEach($scope.cards.value, function(value) {
+					$scope.game.push({
+						color: color,
+						value: value
+					});
 				});
 			});
-		});
 
-		shuffle($scope.game);
+			shuffle($scope.game);
 
-		$scope.piles = {};
+			$scope.piles = {};
 
-		for (var i = 1; i <= 7; i++) {
-			var cards = $scope.game.splice(0, i);
-			cards[cards.length - 1].display = true;
-			$scope.piles[i] = cards;
+			for (var i = 1; i <= 7; i++) {
+				var cards = $scope.game.splice(0, i);
+				cards[cards.length - 1].display = true;
+				$scope.piles[i] = cards;
+			}
+
+			$scope.isLastCard = function (cards, key) {
+				return (cards.length - 1) == key;
+			};
+
+			$scope.pick = [];
+
+			$scope.savedCards = {
+				1: [],
+				2: [],
+				3: [],
+				4: []
+			};
 		}
 
-		$scope.isLastCard = function (cards, key) {
-			return (cards.length - 1) == key;
-		};
-
-		$scope.pick = [];
-
-		$scope.savedCards = {
-			1: [],
-			2: [],
-			3: [],
-			4: []
-		};
+		$scope.create();
 
 		$scope.addPickCard = function () {
 			if ($scope.game.length == 0) {

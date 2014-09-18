@@ -12,6 +12,12 @@ body > div {
 	left: 0;
 }
 
+button.new-game {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
 .ui-draggable-dragging {
 	z-index: 99999999999999;
 }
