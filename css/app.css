@@ -12,7 +12,7 @@ body > div {
 	left: 0;
 }
 
-[draggable="true"] {
+[x-lvl-draggable="true"] {
 	cursor: move;
 }
 
@@ -37,14 +37,14 @@ body > div {
 }
 .pick {
 	display: inline-block;
-	margin-right: 130px;
-	margin-left: 30px;
+	margin-right: 8em;
+	margin-left: 2em;
 	width: 105px;
 	height: 148px;
 }
 .saved-card {
 	display: inline-block;
-	margin-left: 30px;
+	margin-left: 2em;
 	width: 105px;
 	height: 148px;
 }
@@ -57,22 +57,81 @@ body > div {
 	display: none;
 }
 .pile {
+	position: relative;
 	display: inline-block;
 	vertical-align: top;
-	margin-left: 30px;
+	margin-left: 2em;
 	width: 105px;
 	height: 148px;
 }
-.pile .card-hide {
-	height: 20px;
-	border-bottom: 1px solid #000;
-	background-color: #DEDEDE;
-}
-.pile .card {
-	height: 20px;
-}
-.pile .drag {
+.pile > div {
+	position: absolute;
+	width: 100%;
 	height: 148px;
+}
+.pile > div:nth-child(1) {
+	border-top: 0;
+}
+.pile > div:nth-child(2) {
+	top: 20px;
+}
+.pile > div:nth-child(3) {
+	top: 40px;
+}
+.pile > div:nth-child(4) {
+	top: 60px;
+}
+.pile > div:nth-child(5) {
+	top: 80px;
+}
+.pile > div:nth-child(6) {
+	top: 100px;
+}
+.pile > div:nth-child(7) {
+	top: 120px;
+}
+.pile > div:nth-child(8) {
+	top: 140px;
+}
+.pile > div:nth-child(9) {
+	top: 160px;
+}
+.pile > div:nth-child(10) {
+	top: 180px;
+}
+.pile > div:nth-child(11) {
+	top: 200px;
+}
+.pile > div:nth-child(12) {
+	top: 220px;
+}
+.pile > div:nth-child(13) {
+	top: 240px;
+}
+.pile > div:nth-child(14) {
+	top: 260px;
+}
+.pile > div:nth-child(15) {
+	top: 280px;
+}
+.pile > div:nth-child(16) {
+	top: 300px;
+}
+.pile > div:nth-child(17) {
+	top: 320px;
+}
+.pile > div:nth-child(18) {
+	top: 340px;
+}
+.pile > div:nth-child(19) {
+	top: 360px;
+}
+.pile > div:nth-child(20) {
+	top: 380px;
+}
+.pile .card-hide {
+	border-top: 1px solid #000;
+	background-color: #DEDEDE;
 }
 .pile .lastCard {
 	height: 148px;
@@ -82,60 +141,343 @@ body > div {
 }
 
 .card {
-	background-image: url('../img/cards.jpg');
-	width: 105px;
+	background: url('../img/cards.jpg') center #fff;
+	width: 100%;
 	height: 148px;
 }
 
 .color-1 {
-	background-position-y: -1px;
+	background-position-y: 0.2%;
 }
 .color-2 {
-	background-position-y: -151px;
+	background-position-y: -99.3%;
 }
 .color-3 {
-	background-position-y: -451px;
+	background-position-y: -33%;
 }
 .color-4 {
-	background-position-y: -301px;
+	background-position-y: -66%;
 }
 
+.value-1 {
+	background-position-x: 0%;
+}
 .value-2 {
-	background-position-x: -110px;
+	background-position-x: -99.6%;
 }
 .value-3 {
-	background-position-x: -217px;
+	background-position-x: -91.4%;
 }
 .value-4 {
-	background-position-x: -325px;
+	background-position-x: -83%;
 }
 .value-5 {
-	background-position-x: -432px;
+	background-position-x: -74.7%;
 }
 .value-6 {
-	background-position-x: -540px;
+	background-position-x: -66.4%;
 }
 .value-7 {
-	background-position-x: -647px;
+	background-position-x: -58.1%;
 }
 .value-8 {
-	background-position-x: -755px;
+	background-position-x: -49.8%;
 }
 .value-9 {
-	background-position-x: -863px;
+	background-position-x: -41.5%;
 }
 .value-10 {
-	background-position-x: -971px;
+	background-position-x: -33.1%;
 }
 .value-11 {
-	background-position-x: -1078px;
+	background-position-x: -24.9%;
 }
 .value-12 {
-	background-position-x: -1186px;
+	background-position-x: -16.6%;
 }
 .value-13 {
-	background-position-x: -1293px;
+	background-position-x: -8.2%;
 }
-.value-14 {
-	background-position-x: -1px;
+
+@media only screen and (max-width: 768px ) {
+
+	body > div {
+		background-size: 75%;
+	}
+
+	.decks {
+		width: 70px;
+		height: 98px;
+	}
+	.pick {
+		width: 70px;
+		height: 98px;
+		margin-right: 4em;
+		margin-left: 1em;
+	}
+	.saved-card {
+		width: 70px;
+		height: 98px;
+		margin-left: 1em;
+	}
+
+	.pile {
+		width: 70px;
+		margin-left: 1em;
+	}
+
+	.pile > div {
+		height: 98px;
+	}
+
+	.card {
+		height: 98px;
+		background-size: 1325%;
+	}
+
+	.pile .lastCard {
+		height: 98px;
+	}
+
+	.pile > div:nth-child(2) {
+		top: 15px;
+	}
+	.pile > div:nth-child(3) {
+		top: 30px;
+	}
+	.pile > div:nth-child(4) {
+		top: 45px;
+	}
+	.pile > div:nth-child(5) {
+		top: 60px;
+	}
+	.pile > div:nth-child(6) {
+		top: 75px;
+	}
+	.pile > div:nth-child(7) {
+		top: 90px;
+	}
+	.pile > div:nth-child(8) {
+		top: 105px;
+	}
+	.pile > div:nth-child(9) {
+		top: 120px;
+	}
+	.pile > div:nth-child(10) {
+		top: 135px;
+	}
+	.pile > div:nth-child(11) {
+		top: 150px;
+	}
+	.pile > div:nth-child(12) {
+		top: 165px;
+	}
+	.pile > div:nth-child(13) {
+		top: 180px;
+	}
+	.pile > div:nth-child(14) {
+		top: 195px;
+	}
+	.pile > div:nth-child(15) {
+		top: 210px;
+	}
+	.pile > div:nth-child(16) {
+		top: 225px;
+	}
+	.pile > div:nth-child(17) {
+		top: 240px;
+	}
+	.pile > div:nth-child(18) {
+		top: 255px;
+	}
+	.pile > div:nth-child(19) {
+		top: 270px;
+	}
+	.pile > div:nth-child(20) {
+		top: 285px;
+	}
+}
+
+@media only screen and (max-width : 480px) {
+	.decks {
+		width: 50px;
+		height: 70px;
+	}
+	.pick {
+		width: 50px;
+		height: 70px;
+		margin-right: 3.5em;
+		margin-left: 0.5em;
+	}
+	.saved-card {
+		width: 50px;
+		height: 70px;
+		margin-left: 0.5em;
+	}
+
+	.pile {
+		width: 50px;
+		margin-left: 0.5em;
+	}
+
+	.pile > div {
+		height: 70px;
+	}
+
+	.card {
+		height: 70px;
+	}
+
+	.pile .lastCard {
+		height: 70px;
+	}
+
+	.pile > div:nth-child(2) {
+		top: 12px;
+	}
+	.pile > div:nth-child(3) {
+		top: 24px;
+	}
+	.pile > div:nth-child(4) {
+		top: 36px;
+	}
+	.pile > div:nth-child(5) {
+		top: 48px;
+	}
+	.pile > div:nth-child(6) {
+		top: 60px;
+	}
+	.pile > div:nth-child(7) {
+		top: 72px;
+	}
+	.pile > div:nth-child(8) {
+		top: 84px;
+	}
+	.pile > div:nth-child(9) {
+		top: 96px;
+	}
+	.pile > div:nth-child(10) {
+		top: 108px;
+	}
+	.pile > div:nth-child(11) {
+		top: 120px;
+	}
+	.pile > div:nth-child(12) {
+		top: 132px;
+	}
+	.pile > div:nth-child(13) {
+		top: 144px;
+	}
+	.pile > div:nth-child(14) {
+		top: 156px;
+	}
+	.pile > div:nth-child(15) {
+		top: 168px;
+	}
+	.pile > div:nth-child(16) {
+		top: 180px;
+	}
+	.pile > div:nth-child(17) {
+		top: 192px;
+	}
+	.pile > div:nth-child(18) {
+		top: 204px;
+	}
+	.pile > div:nth-child(19) {
+		top: 216px;
+	}
+	.pile > div:nth-child(20) {
+		top: 228px;
+	}
+}
+
+/* iPhone Retina */
+@media only screen and (max-width : 320px) {
+	.decks {
+		width: 35px;
+		height: 49px;
+	}
+	.pick {
+		width: 35px;
+		height: 49px;
+		margin-right: 2em;
+	}
+	.saved-card {
+		width: 35px;
+		height: 49px;
+	}
+
+	.pile {
+		width: 35px;
+	}
+
+	.pile > div {
+		height: 49px;
+	}
+
+	.card {
+		height: 49px;
+	}
+
+	.pile .lastCard {
+		height: 49px;
+	}
+
+	.pile > div:nth-child(2) {
+		top: 10px;
+	}
+	.pile > div:nth-child(3) {
+		top: 20px;
+	}
+	.pile > div:nth-child(4) {
+		top: 30px;
+	}
+	.pile > div:nth-child(5) {
+		top: 40px;
+	}
+	.pile > div:nth-child(6) {
+		top: 50px;
+	}
+	.pile > div:nth-child(7) {
+		top: 60px;
+	}
+	.pile > div:nth-child(8) {
+		top: 70px;
+	}
+	.pile > div:nth-child(9) {
+		top: 80px;
+	}
+	.pile > div:nth-child(10) {
+		top: 90px;
+	}
+	.pile > div:nth-child(11) {
+		top: 100px;
+	}
+	.pile > div:nth-child(12) {
+		top: 110px;
+	}
+	.pile > div:nth-child(13) {
+		top: 120px;
+	}
+	.pile > div:nth-child(14) {
+		top: 130px;
+	}
+	.pile > div:nth-child(15) {
+		top: 140px;
+	}
+	.pile > div:nth-child(16) {
+		top: 150px;
+	}
+	.pile > div:nth-child(17) {
+		top: 160px;
+	}
+	.pile > div:nth-child(18) {
+		top: 170px;
+	}
+	.pile > div:nth-child(19) {
+		top: 180px;
+	}
+	.pile > div:nth-child(20) {
+		top: 190px;
+	}
 }

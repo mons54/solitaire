@@ -127,14 +127,12 @@
 					hide = true;
 				}
 			});
-			el.addClass('drag');
 			$scope.dragEl = el;
 		});
 
 		$rootScope.$on('dragEnd', function (event, el) {
 			$scope.dragEl = null;
 			el.parent().find('.card').removeClass('hide');
-			el.removeClass('drag');
 		});
 
 	}]);
@@ -176,10 +174,6 @@
 		return {
 			restrict: 'AE',
 			link: function (scope, el, attrs, controller) {
-
-				if (!attrs.lvlDraggable) {
-					return;
-				}
 
 				angular.element(el).attr('draggable', 'true');
 
