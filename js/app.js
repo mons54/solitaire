@@ -102,9 +102,11 @@
 		}
 
 		function dragCard (array, data) {
-			var card = data.pick ? $scope.pick.splice($scope.pick.length - 1, 1)[0] : $scope.piles[data.pileIndex].splice(data.cardIndex, 1)[0];
-			card.display = true;
-			array.push(card);
+			var cards = data.pick ? $scope.pick.splice($scope.pick.length - 1, 1) : $scope.piles[data.pileIndex].splice(data.cardIndex, $scope.piles[data.pileIndex].length - data.cardIndex + 1);
+			angular.forEach(cards, function (card) {
+				card.display = true;
+				array.push(card);
+			});
 			if (data.pileIndex) {
 				var pile = $scope.piles[data.pileIndex];
 				if ($scope.getLastElm(pile)) {
@@ -115,11 +117,24 @@
 		}
 
 		$rootScope.$on('dragStart', function (event, el) {
+			var cards = el.parent().find('.card'),
+				hide = false;
+			angular.forEach(cards, function (card) {
+				if (hide) {
+					$(card).addClass('hide');
+				}
+				if ($(card).attr('id') == el.attr('id')) {
+					hide = true;
+				}
+			});
+			el.addClass('drag');
 			$scope.dragEl = el;
 		});
 
 		$rootScope.$on('dragEnd', function (event, el) {
 			$scope.dragEl = null;
+			el.parent().find('.card').removeClass('hide');
+			el.removeClass('drag');
 		});
 		
 	}]);
